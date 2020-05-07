@@ -15,7 +15,8 @@ RUN apt-get -qq update && apt-get -qq -y install \
        sockets \
        zip \
     && composer require php-amqplib/php-amqplib \
-    && composer install
+    && composer install \
+    && echo "ServerName localhost" | tee  /etc/apache2/sites-available/000-default.conf
 
 # Copy html files from current directory into container filesystem
 COPY ./html /var/www/html/
