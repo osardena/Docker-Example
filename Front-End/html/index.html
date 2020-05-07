@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <meta charset="utf-8">
+    <title>IT-490</title>
+
+</head>
+
+<body>
+
+<h2>Login Form</h2>
+
+<form action="php/send.php" method="POST" autocomplete="off">
+
+    <label>Email:</label>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <input type = "hidden" name = "action" value = "login">
+
+    <input class="button" type="submit" value="Login">
+
+</form>
+
+</body>
+
+</html>
+
+<!--autofocus specifies that an <input> element should automatically get focus when the page loads-->
