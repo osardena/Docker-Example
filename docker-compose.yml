@@ -4,27 +4,28 @@ services:
     build: ./Front-End
     ports:
     - 5000:80
-    depends_on:
-      - messaging
-  messaging:
-    build: ./Messaging
-    ports:
-      - 5672:5672   # RabbitMQ message broker port
-      - 15672:15672 # RabbitMQ management GUI port
-  back_end:
-    build: ./Back-End
-    depends_on:
-      - messaging
-    volumes:
-      - "./Back-End:/usr/src/myapp"
-  db_admin:
-    build: ./DB-Admin
-    ports:
-      - 8080:8080
+  #  depends_on:
+    #  - messaging
+  #messaging:
+  #  build: ./Messaging
+  #  ports:
+  #    - 5672:5672   # RabbitMQ message broker port
+  #    - 15672:15672 # RabbitMQ management GUI port
+  #back_end:
+  #  build: ./Back-End
+  #  depends_on:
+  #    - messaging
+  #  volumes:
+  #    - "./Back-End:/usr/src/myapp"
+  #db_admin:
+  #  build: ./DB-Admin
+  #  ports:
+  #    - 8080:8080
   database:
     build: ./Database
     volumes:
-      - "./Database/db:/var/lib/mysql"
-    restart: always
+      # - "./Database/db:/var/lib/mysql"
+      - "./Database/mysqlconf:/etc/mysql/conf.d"
+    # restart: always
     ports:
       - 4407:4407
