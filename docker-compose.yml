@@ -3,8 +3,16 @@ services:
   front_end:
     build: ./Front-End
     ports:
-    - 5000:80
-  #  depends_on:
+    - 8080:80
+  database:
+    build: ./Database
+    volumes:
+      # - "./Database/db:/var/lib/mysql"
+      - "./Database/mysqlconf:/etc/mysql/conf.d"
+    # restart: always
+    ports:
+      - 3306:3306
+    #  depends_on:
     #  - messaging
   #messaging:
   #  build: ./Messaging
@@ -21,11 +29,3 @@ services:
   #  build: ./DB-Admin
   #  ports:
   #    - 8080:8080
-  database:
-    build: ./Database
-    volumes:
-      # - "./Database/db:/var/lib/mysql"
-      - "./Database/mysqlconf:/etc/mysql/conf.d"
-    # restart: always
-    ports:
-      - 4407:4407
