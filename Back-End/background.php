@@ -36,7 +36,7 @@ $callback = function ($msg) {
 
     switch ($action){
         case 'login':
-            echo "LOGIN TEST WORKED\n";
+            echo "SWITCH TEST WORKED\n";
             // Automatically resolve to the docker service named 'database'
             $servername = "database";
             $database = "test";
