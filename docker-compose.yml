@@ -9,20 +9,20 @@ services:
     volumes:
       # - "./Database/db:/var/lib/mysql"
       - "./Database/mysqlconf:/etc/mysql/conf.d"
-    # restart: always
+  messaging:
+    build: ./Messaging
     ports:
-      - 3306:3306
-  #messaging:
-  #  build: ./Messaging
-  #  ports:
-  #    - 5672:5672   # RabbitMQ message broker port
-  #    - 15672:15672 # RabbitMQ management GUI port
-  #back_end:
-  #  build: ./Back-End
-  #  depends_on:
-  #    - messaging
-  #  volumes:
-  #    - "./Back-End:/usr/src/myapp"
+      - 5672:5672   # RabbitMQ message broker port
+      - 15672:15672 # RabbitMQ management GUI port
+  back_end:
+    build: ./Back-End
+    restart: on-failure
+    depends_on:
+      - messaging
+    volumes:
+      - "./Back-End:/usr/src/myapp"
+      #ports:
+      #- 3306:3306
   #db_admin:
   #  build: ./DB-Admin
   #  ports:

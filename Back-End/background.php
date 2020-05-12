@@ -5,7 +5,7 @@ use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Exception\AMQPIOException;
 
 $messaging_attempt = 3;
-sleep(4);
+
 // Attempts connection to messaging service
 while($messaging_attempt > 0){
     try{
