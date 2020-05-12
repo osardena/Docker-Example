@@ -4,24 +4,26 @@ require 'vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Exception\AMQPIOException;
 
-$messaging_attempt = 3;
+$connection_attempt = 3;
 
-// Attempts connection to messaging service
-while($messaging_attempt > 0){
+// Connect to RabbitMQ messaging service
+while($connection_attempt > 0){
     try{
-        sleep(2); // Wait 2 seconds before connection attempt
+        // Wait 2 seconds before connection attempt
+        sleep(2);
         $connection = new AMQPConnection('messaging', 5672, 'guest', 'guest');
         $channel = $connection->channel();
         $channel->queue_declare('login_queue', false, false, false, false);
-        $messaging_attempt = 0; // Set to 0 to exit the while loop after connection
+        // Exit while loop after successful connection
+        $connection_attempt = 0;
         echo " [*] Waiting for messages. To exit press CTRL+C\n";
     }
     catch (AMQPIOException $e){
         // Print out error messages
         echo "Connection Failed: " . $e->getMessage() . "\n";
-        $messaging_attempt--;
+        $connection_attempt--;
         // Wait 3 seconds before connection attempt
-        sleep(3);
+        sleep(2);
     }
 }
 
@@ -37,8 +39,7 @@ $callback = function ($msg) {
     switch ($action){
         case 'login':
             echo "SWITCH TEST WORKED\n";
-            // Automatically resolve to the docker service named 'database'
-            $servername = "database";
+            $servername = "database"; // Automatically resolve to the docker service named 'database'
             $database = "test";
             $username = "root";
             $password = "guest";
