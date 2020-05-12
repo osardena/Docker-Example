@@ -9,8 +9,8 @@ $connection_attempt = 3;
 // Connect to RabbitMQ messaging service
 while($connection_attempt > 0){
     try{
-        // Wait 2 seconds before connection attempt
-        sleep(2);
+        // Wait 4 seconds before connection attempt to allow time for RabbitMQ service to be in a 'ready' state
+        sleep(4);
         $connection = new AMQPConnection('messaging', 5672, 'guest', 'guest');
         $channel = $connection->channel();
         $channel->queue_declare('login_queue', false, false, false, false);
@@ -23,7 +23,7 @@ while($connection_attempt > 0){
         echo "Connection Failed: " . $e->getMessage() . "\n";
         $connection_attempt--;
         // Wait 3 seconds before connection attempt
-        sleep(2);
+        sleep(3);
     }
 }
 
